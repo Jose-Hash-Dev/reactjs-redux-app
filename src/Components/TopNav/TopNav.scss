@@ -1,0 +1,14 @@
+.navigation {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  &__logo {
+    width: 200px;
+    height: 150px;
+    margin-right: 100px;
+    cursor: pointer;
+  }
+}
+

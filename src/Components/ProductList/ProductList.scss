@@ -1,0 +1,23 @@
+.product-list {
+  padding: 25px;
+  margin: 5px;
+  border-radius: 10px;
+
+  &-details {
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: row;
+
+    &__title {
+      font-size: 25px;
+    }
+
+    &__price {
+      justify-content: flex-end;
+      font-size: 25px;
+      margin-right: 5px;
+    }
+  }
+}
+
+
