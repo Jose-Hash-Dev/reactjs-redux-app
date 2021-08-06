@@ -1,17 +1,27 @@
-import React from 'react'
-import ProductList from './Components/ProductList/ProductList'
-import TopNav from './Components/TopNav/TopNav.js'
-import { initializeIcons } from '@fluentui/font-icons-mdl2'
-import './App.scss'
-initializeIcons()
+import React from "react";
+import ProductList from "./Components/ProductList/ProductList";
+import { initializeIcons } from "@fluentui/font-icons-mdl2";
+import "./App.scss";
+import TopNav from "./Components/TopNav/TopNav";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ProductDetail from "./Components/ProductDetail/ProductDetail";
 
-function App () {
+initializeIcons();
+
+function App() {
   return (
-      <>
-          <TopNav />
-          <ProductList/>
-      </>
-  )
+    <BrowserRouter>
+      <TopNav />
+      <Switch>
+        <Route exact path="/products">
+          <ProductList />
+        </Route>
+        <Route path="/products/:bookId">
+          <ProductDetail />
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
