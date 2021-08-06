@@ -1,0 +1,35 @@
+.product-detail {
+  padding: 25px;
+  margin: 5px;
+  border-radius: 10px;
+  text-align: center;
+
+  &__image {
+    height: 500px;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    font-size: 20px;
+  }
+  &__description {
+    font-size: 15px;
+  }
+  &__spinner {
+    width: 20%;
+  }
+  &-price-amount-container {
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 20px;
+    display: flex;
+
+    &__amount {
+      font-size: 20px;
+    }
+    &__price {
+      font-size: 25px;
+    }
+  }
+}
+
