@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   ImageFit,
@@ -6,52 +6,56 @@ import {
   Position,
   Rating,
   Image,
+  PrimaryButton,
 } from "@fluentui/react";
-import { useParams } from "react-router-dom";
-import Book from "../../assets/Data";
 import "./ProductDetail.scss";
 import {
   DocumentCard,
   DocumentCardTitle,
 } from "@fluentui/react/lib/DocumentCard";
-import AddToCart from "./Buttons/AddToCart/AddToCart";
+import { addToCart } from "../../Redux/Shopping/Actions";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-function ProductDetail() {
-  let { bookId } = useParams();
-  bookId = parseInt(bookId);
-  const thisBook = Book.find((book) => book.id === bookId);
+const ProductDetail = ({ addToCart, current }) => {
+  const [input, setInput] = useState(1);
 
+  const onAddHandler = (e) => {
+    setInput(e.target.value);
+    console.log(e.target.value);
+    // addToCart(current.id, e.target.value);
+    console.log(e.target.value);
+  };
   return (
     <DocumentCard className="product-detail">
       <DocumentCardTitle
         className="product-detail__title"
-        title={thisBook.title}
+        title={current.title}
         shouldTruncate
       />
       <Image
         className="product-detail__image"
         imageFit={ImageFit.cover}
-        src={thisBook.image}
-        alt={thisBook.alt}
+        src={current.image}
+        alt={current.alt}
       />
-      <Text className="product-detail__description">
-        {thisBook.description}
-      </Text>
+      <Text className="product-detail__description">{current.description}</Text>
       <div className="product-detail-price-amount-container">
         <SpinButton
           label="Amount:"
           labelPosition={Position.top}
-          defaultValue="0"
           min={0}
           max={20}
           step={1}
+          defaultValue={input}
           incrementButtonAriaLabel="Increase value by 1"
           decrementButtonAriaLabel="Decrease value by 1"
           className="product-detail__spinner"
+          onChange={onAddHandler}
         />
-        <div className="">
+        <div>
           <Text className="product-detail-price-amount-container__price">
-            {thisBook.price}$
+            {current.price}
           </Text>
           <Rating
             defaultRating={0}
@@ -63,9 +67,31 @@ function ProductDetail() {
           />
         </div>
       </div>
-      <AddToCart />
+      <PrimaryButton
+        className="add-cart-button"
+        onClick={() => addToCart(current.id, input)}
+      >
+        Add To Cart
+      </PrimaryButton>
     </DocumentCard>
   );
-}
+};
 
-export default ProductDetail;
+ProductDetail.propTypes = {
+  addToCart: PropTypes.any,
+  current: PropTypes.any,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    current: state.shop.currentItem,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: (id, value) => dispatch(addToCart(id, value)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);

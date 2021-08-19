@@ -1,12 +1,16 @@
-import React from 'react'
-import { Icon } from '@fluentui/react/lib/Icon'
-import './ShoppingCart.scss'
+import React from "react";
+import { Icon } from "@fluentui/react/lib/Icon";
+import "./ShoppingCart.scss";
+import { Link } from "react-router-dom";
 
-function ShoppingCart () {
+const ShoppingCart = () => {
   return (
-      <div className="cart-button">
-          <Icon iconName="ShoppingCart" />
-      </div>
-  )
-}
-export default ShoppingCart
+    <div className="cart-button">
+      <Link to={`/cart`}>
+        <Icon iconName="ShoppingCart" />
+      </Link>
+    </div>
+  );
+};
+
+export default ShoppingCart;
