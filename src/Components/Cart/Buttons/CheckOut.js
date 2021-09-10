@@ -2,8 +2,8 @@ import React from "react";
 import { PrimaryButton } from "@fluentui/react";
 import "./CheckOut.scss";
 
-export const AddToCart = () => {
+export const Checkout = () => {
   return <PrimaryButton className="checkout-button" text="Checkout" />;
 };
 
-export default AddToCart;
+export default Checkout;

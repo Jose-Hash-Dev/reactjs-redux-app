@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ProductDetail from "./Components/ProductDetail/ProductDetail";
 import CartList from "./Components/Cart/CartList";
 import TopNav from "./Components/TopNav/TopNav";
-import { connect } from "react-redux";
+import CheckoutList from "./Components/Checkout/CheckoutList";
 
 initializeIcons();
 
@@ -15,24 +15,23 @@ function App() {
     <BrowserRouter>
       <TopNav />
       <Switch>
+        <Route exact path="/">
+          <ProductList />
+        </Route>
         <Route exact path="/products">
           <ProductList />
         </Route>
-        <Route path="/products/:bookId">
+        <Route path="/product/:bookId">
           <ProductDetail />
         </Route>
-        <Route>
+        <Route path="/cart">
           <CartList />
+        </Route>
+        <Route path="/checkout">
+          <CheckoutList />
         </Route>
       </Switch>
     </BrowserRouter>
   );
 }
-
-const mapStateToProps = (state) => {
-  return {
-    current: state.shop.currentItem,
-  };
-};
-
-export default connect(mapStateToProps)(App);
+export default App;

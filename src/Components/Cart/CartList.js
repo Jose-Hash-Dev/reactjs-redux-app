@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./Cart.scss";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import CartProduct from "./CartProduct";
 import { Text } from "@fluentui/react";
-import CheckOut from "./Buttons/CheckOut";
+import Checkout from "./Buttons/CheckOut";
+import { Link } from "react-router-dom";
 
-const CartList = ({ cart }) => {
+const CartList = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
+  const cart = useSelector((state) => state.shop.cart);
 
   useEffect(() => {
     let items = 0;
@@ -33,7 +34,9 @@ const CartList = ({ cart }) => {
             <Text className="shopping-cart-total-cost-container__total-cost">
               Total Cost: {totalPrice}$
             </Text>
-            <CheckOut />
+            <Link to={`/checkout`}>
+              <Checkout />
+            </Link>
           </>
         ) : (
           <Text className="shopping-cart-total-cost-container__total-cost">
@@ -44,14 +47,5 @@ const CartList = ({ cart }) => {
     </div>
   );
 };
-CartList.propTypes = {
-  cart: PropTypes.any,
-};
 
-const mapStateToProps = (state) => {
-  return {
-    cart: state.shop.cart,
-  };
-};
-
-export default connect(mapStateToProps)(CartList);
+export default CartList;

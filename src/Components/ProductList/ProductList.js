@@ -1,10 +1,10 @@
 import React from "react";
 import "./ProductList.scss";
 import Product from "./Product";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const ProductList = ({ products }) => {
+const ProductList = () => {
+  const products = useSelector((state) => state.shop.products);
   return (
     <>
       {products.map((product) => (
@@ -13,14 +13,5 @@ const ProductList = ({ products }) => {
     </>
   );
 };
-ProductList.propTypes = {
-  products: PropTypes.any,
-};
 
-const mapStateToProps = (state) => {
-  return {
-    products: state.shop.products,
-  };
-};
-
-export default connect(mapStateToProps)(ProductList);
+export default ProductList;

@@ -4,13 +4,13 @@ import DropDown from "./Buttons/DropDown/DropDown";
 import { Link } from "react-router-dom";
 import "./TopNav.scss";
 import logo from "../../assets/Images/logo.png";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Text } from "@fluentui/react";
 import NavigateBack from "./Buttons/NavigateBack/NavigateBack";
 
-const TopNav = ({ cart }) => {
+const TopNav = () => {
   const [cartCount, setCartCount] = useState(0);
+  const cart = useSelector((state) => state.shop.cart);
   useEffect(() => {
     let count = 0;
     cart.forEach((item) => {
@@ -38,14 +38,4 @@ const TopNav = ({ cart }) => {
     </div>
   );
 };
-
-TopNav.propTypes = {
-  cart: PropTypes.any,
-};
-const mapStateToProps = (state) => {
-  return {
-    cart: state.shop.cart,
-  };
-};
-
-export default connect(mapStateToProps)(TopNav);
+export default TopNav;

@@ -14,18 +14,20 @@ import {
   DocumentCardTitle,
 } from "@fluentui/react/lib/DocumentCard";
 import { addToCart } from "../../Redux/Shopping/Actions";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 
-const ProductDetail = ({ addToCart, current }) => {
-  const [input, setInput] = useState(1);
-
-  const onAddHandler = (e) => {
-    setInput(e.target.value);
-    console.log(e.target.value);
-    // addToCart(current.id, e.target.value);
-    console.log(e.target.value);
+const ProductDetail = () => {
+  const [input, setInput] = useState(0);
+  const current = useSelector((state) => state.shop.currentItem);
+  const dispatch = useDispatch();
+  const addToBasket = () => {
+    dispatch(addToCart(current.id, input));
   };
+
+  const onChangeAmount = React.useCallback((e, newValue) => {
+    setInput(newValue);
+  });
+
   return (
     <DocumentCard className="product-detail">
       <DocumentCardTitle
@@ -51,7 +53,7 @@ const ProductDetail = ({ addToCart, current }) => {
           incrementButtonAriaLabel="Increase value by 1"
           decrementButtonAriaLabel="Decrease value by 1"
           className="product-detail__spinner"
-          onChange={onAddHandler}
+          onChange={onChangeAmount}
         />
         <div>
           <Text className="product-detail-price-amount-container__price">
@@ -69,7 +71,9 @@ const ProductDetail = ({ addToCart, current }) => {
       </div>
       <PrimaryButton
         className="add-cart-button"
-        onClick={() => addToCart(current.id, input)}
+        onClick={() => addToBasket()}
+        disabled={input < 1}
+        allowDisabledFocus
       >
         Add To Cart
       </PrimaryButton>
@@ -77,21 +81,4 @@ const ProductDetail = ({ addToCart, current }) => {
   );
 };
 
-ProductDetail.propTypes = {
-  addToCart: PropTypes.any,
-  current: PropTypes.any,
-};
-
-const mapStateToProps = (state) => {
-  return {
-    current: state.shop.currentItem,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addToCart: (id, value) => dispatch(addToCart(id, value)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
+export default ProductDetail;

@@ -10,15 +10,16 @@ import {
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { loadCurrentItem } from "../../Redux/Shopping/Actions";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
-const Product = ({ product, loadCurrentItem }) => {
+const Product = ({ product }) => {
+  const dispatch = useDispatch();
+  const currentItem = () => {
+    dispatch(loadCurrentItem(product));
+  };
   return (
-    <DocumentCard
-      onClick={() => loadCurrentItem(product)}
-      className="product-list"
-    >
-      <Link to={`/products/${product.id}`}>
+    <DocumentCard onClick={() => currentItem()} className="product-list">
+      <Link to={`/product/${product.id}`}>
         <DocumentCardImage
           height={500}
           imagefit={ImageFit.cover}
@@ -40,13 +41,6 @@ const Product = ({ product, loadCurrentItem }) => {
 
 Product.propTypes = {
   product: PropTypes.any,
-  loadCurrentItem: PropTypes.any,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loadCurrentItem: (item) => dispatch(loadCurrentItem(item)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Product);
+export default Product;
