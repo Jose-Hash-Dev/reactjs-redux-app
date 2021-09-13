@@ -1,12 +1,12 @@
-import React from 'react'
-import { Icon } from '@fluentui/react/lib/Icon'
-import './DropDown.scss'
+import React from "react";
+import { Icon } from "@fluentui/react/lib/Icon";
+import "./DropDown.scss";
 
-function DropDown () {
+function DropDown() {
   return (
-      <div className="dropdown-button">
-          <Icon iconName="GlobalNavButton" />
-      </div>
-  )
+    <div className="dropdown-button">
+      <Icon iconName="GlobalNavButton" />
+    </div>
+  );
 }
-export default DropDown
+export default DropDown;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   ImageFit,
@@ -6,52 +6,58 @@ import {
   Position,
   Rating,
   Image,
+  PrimaryButton,
 } from "@fluentui/react";
-import { useParams } from "react-router-dom";
-import Book from "../../assets/Data";
 import "./ProductDetail.scss";
 import {
   DocumentCard,
   DocumentCardTitle,
 } from "@fluentui/react/lib/DocumentCard";
-import AddToCart from "./Buttons/AddToCart/AddToCart";
+import { addToCart } from "../../Redux/Shopping/Actions";
+import { useDispatch, useSelector } from "react-redux";
 
-function ProductDetail() {
-  let { bookId } = useParams();
-  bookId = parseInt(bookId);
-  const thisBook = Book.find((book) => book.id === bookId);
+const ProductDetail = () => {
+  const [input, setInput] = useState(0);
+  const current = useSelector((state) => state.shop.currentItem);
+  const dispatch = useDispatch();
+  const addToBasket = () => {
+    dispatch(addToCart(current.id, input));
+  };
+
+  const onChangeAmount = React.useCallback((e, newValue) => {
+    setInput(newValue);
+  });
 
   return (
     <DocumentCard className="product-detail">
       <DocumentCardTitle
         className="product-detail__title"
-        title={thisBook.title}
+        title={current.title}
         shouldTruncate
       />
       <Image
         className="product-detail__image"
         imageFit={ImageFit.cover}
-        src={thisBook.image}
-        alt={thisBook.alt}
+        src={current.image}
+        alt={current.alt}
       />
-      <Text className="product-detail__description">
-        {thisBook.description}
-      </Text>
+      <Text className="product-detail__description">{current.description}</Text>
       <div className="product-detail-price-amount-container">
         <SpinButton
           label="Amount:"
           labelPosition={Position.top}
-          defaultValue="0"
           min={0}
           max={20}
           step={1}
+          defaultValue={input}
           incrementButtonAriaLabel="Increase value by 1"
           decrementButtonAriaLabel="Decrease value by 1"
           className="product-detail__spinner"
+          onChange={onChangeAmount}
         />
-        <div className="">
+        <div>
           <Text className="product-detail-price-amount-container__price">
-            {thisBook.price}$
+            {current.price}
           </Text>
           <Rating
             defaultRating={0}
@@ -63,9 +69,16 @@ function ProductDetail() {
           />
         </div>
       </div>
-      <AddToCart />
+      <PrimaryButton
+        className="add-cart-button"
+        onClick={() => addToBasket()}
+        disabled={input < 1}
+        allowDisabledFocus
+      >
+        Add To Cart
+      </PrimaryButton>
     </DocumentCard>
   );
-}
+};
 
 export default ProductDetail;

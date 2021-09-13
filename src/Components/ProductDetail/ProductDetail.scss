@@ -1,6 +1,5 @@
 .product-detail {
   padding: 25px;
-  margin: 5px;
   border-radius: 10px;
   text-align: center;
 
@@ -20,9 +19,9 @@
   }
   &-price-amount-container {
     justify-content: space-between;
-    flex-direction: row;
     margin-top: 20px;
     display: flex;
+    align-items: center;
 
     &__amount {
       font-size: 20px;
@@ -31,5 +30,11 @@
       font-size: 25px;
     }
   }
+}
+
+.add-cart-button {
+  margin-top: 10px;
+  width: 100%;
+  size: 15px;
 }
 

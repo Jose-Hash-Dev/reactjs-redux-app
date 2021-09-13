@@ -1,43 +1,17 @@
-import React from 'react'
-import { ImageFit, Text } from '@fluentui/react'
-import './ProductList.scss'
-import {
-  DocumentCard,
-  DocumentCardDetails,
-  DocumentCardImage,
-  DocumentCardTitle
-} from '@fluentui/react/lib/DocumentCard'
-import { Link } from 'react-router-dom'
-import Books from '../../assets/Data'
+import React from "react";
+import "./ProductList.scss";
+import Product from "./Product";
+import { useSelector } from "react-redux";
 
-function ProductList () {
+const ProductList = () => {
+  const products = useSelector((state) => state.shop.products);
   return (
-    <div>
-      {Books.map(book => {
-        return (
-          <DocumentCard
-            key={book.id}
-            className="product-list">
-            <Link to={`/products/${book.id}`}>
-              <DocumentCardImage
-                height={500}
-                imagefit={ImageFit.cover}
-                imageSrc={book.image}
-                alt={book.alt}/>
-            </Link>
-            <DocumentCardDetails
-              className="product-list-details">
-              <DocumentCardTitle
-                className="product-list-details__title"
-                title={book.title}
-                shouldTruncate/>
-              <Text className="product-list-details__price">{book.price}$</Text>
-            </DocumentCardDetails>
-          </DocumentCard>
-        )
-      })}
-    </div>
-  )
-}
+    <>
+      {products.map((product) => (
+        <Product key={product.id} product={product} />
+      ))}
+    </>
+  );
+};
 
-export default ProductList
+export default ProductList;
