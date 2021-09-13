@@ -13,24 +13,18 @@ import {
   DocumentCardImage,
   DocumentCardTitle,
 } from "@fluentui/react/lib/DocumentCard";
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { Icon } from "@fluentui/react/lib/Icon";
 import { adjustQuantity, removeFromCart } from "../../Redux/Shopping/Actions";
 import PropTypes from "prop-types";
 
-const CartProduct = ({ item }) => {
+const CartProduct = ({ item, adjustQuantity, removeFromCart }) => {
   const [input, setInput] = useState(item.quantity);
-  const dispatch = useDispatch();
-  const changeQuantity = () => {
-    dispatch(adjustQuantity(item.id, input));
-  };
-  const removeItem = () => {
-    dispatch(removeFromCart(item.id));
-  };
   const onChangeHandler = (e) => {
     setInput(e.target.value);
-    changeQuantity(item.id, e.target.value);
+    adjustQuantity(item.id, e.target.value);
   };
+
   return (
     <>
       <DocumentCard
@@ -56,7 +50,7 @@ const CartProduct = ({ item }) => {
             <Icon
               className="shopping-cart-title-button-container__close-button"
               iconName="ChromeClose"
-              onClick={removeItem}
+              onClick={() => removeFromCart(item.id)}
             />
           </div>
           <div className="shopping-cart-price-spinner-container">
@@ -67,12 +61,12 @@ const CartProduct = ({ item }) => {
               labelPosition={Position.top}
               defaultValue={input}
               min={1}
-              max={100}
               step={1}
               incrementButtonAriaLabel="Increase value by 1"
               decrementButtonAriaLabel="Decrease value by 1"
               className="shopping-cart-price-spinner-container__spinner"
               onChange={onChangeHandler}
+              onClick={onChangeHandler}
             />
           </div>
         </DocumentCardDetails>
@@ -82,6 +76,15 @@ const CartProduct = ({ item }) => {
 };
 CartProduct.propTypes = {
   item: PropTypes.any,
+  adjustQuantity: PropTypes.any,
+  removeFromCart: PropTypes.any,
 };
 
-export default CartProduct;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    adjustQuantity: (id, value) => dispatch(adjustQuantity(id, value)),
+    removeFromCart: (id) => dispatch(removeFromCart(id)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CartProduct);

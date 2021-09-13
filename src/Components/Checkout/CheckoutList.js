@@ -11,6 +11,7 @@ import {
 import "./Checkout.scss";
 import { useBoolean } from "@fluentui/react-hooks";
 import { Link } from "react-router-dom";
+import Form from "./Form/Form";
 
 const dialogContentProps = {
   type: DialogType.normal,
@@ -19,25 +20,24 @@ const dialogContentProps = {
 
 const CheckoutList = () => {
   const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
-  const modalProps = React.useMemo(() => ({
-    isBlocking: true,
-  }));
   const cart = useSelector((state) => state.shop.cart);
-
+  const total = () => {
+    let sum = 0;
+    cart.map((item) => (sum += parseFloat(item.price) * item.quantity));
+    return sum;
+  };
   return (
     <div>
       {cart.map((item) => (
         <CheckoutProduct key={item.id} item={item} />
       ))}
       <Text className="checkout-total-cost-container__total-cost">
-        Total Price: 73$
+        Total Cost: {total()}$
       </Text>
       <Dialog
         hidden={hideDialog}
         onDismiss={toggleHideDialog}
         dialogContentProps={dialogContentProps}
-        modalProps={modalProps}
-        className=""
       >
         <DialogFooter>
           <Link to={`/products`}>
@@ -45,6 +45,8 @@ const CheckoutList = () => {
           </Link>
         </DialogFooter>
       </Dialog>
+      <hr />
+      <Form />
       <PrimaryButton className="order-button" onClick={toggleHideDialog}>
         Order
       </PrimaryButton>
