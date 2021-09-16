@@ -47,9 +47,6 @@ const CheckoutList = () => {
       </Dialog>
       <hr />
       <Form />
-      <PrimaryButton className="order-button" onClick={toggleHideDialog}>
-        Order
-      </PrimaryButton>
     </div>
   );
 };
