@@ -54,8 +54,6 @@ PopUp.propTypes = {
   secondaryLink: PropTypes.string,
   secondaryText: PropTypes.string,
   dialogContentProps: PropTypes.object,
-  link: PropTypes.string,
-  buttonText: PropTypes.string,
   isSecondaryUsed: PropTypes.bool,
 };
 
