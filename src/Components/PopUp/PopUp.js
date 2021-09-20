@@ -56,5 +56,4 @@ PopUp.propTypes = {
   dialogContentProps: PropTypes.object,
   isSecondaryUsed: PropTypes.bool,
 };
-
 export default PopUp;
