@@ -25,26 +25,24 @@ const PopUp = ({
   });
 
   return (
-    <>
-      <Dialog
-        className="popup"
-        hidden={hideDialog}
-        onDismiss={toggleHideDialog}
-        dialogContentProps={dialogContentProps}
-        modalProps={modalProps}
-      >
-        <DialogFooter>
-          {isSecondaryUsed ? (
-            <div className="popup__button">
-              <PopupButton buttonName={primaryText} link={primaryLink} />
-              <PopupButton buttonName={secondaryText} link={secondaryLink} />
-            </div>
-          ) : (
+    <Dialog
+      className="popup"
+      hidden={hideDialog}
+      onDismiss={toggleHideDialog}
+      dialogContentProps={dialogContentProps}
+      modalProps={modalProps}
+    >
+      <DialogFooter>
+        {isSecondaryUsed ? (
+          <div className="popup__button">
             <PopupButton buttonName={primaryText} link={primaryLink} />
-          )}
-        </DialogFooter>
-      </Dialog>
-    </>
+            <PopupButton buttonName={secondaryText} link={secondaryLink} />
+          </div>
+        ) : (
+          <PopupButton buttonName={primaryText} link={primaryLink} />
+        )}
+      </DialogFooter>
+    </Dialog>
   );
 };
 
