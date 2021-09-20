@@ -10,10 +10,12 @@ export const addToCart = (itemID, value) => {
   };
 };
 
-export const removeFromCart = () => {
+export const removeFromCart = (itemID) => {
   return {
     type: actionTypes.REMOVE_FROM_CART,
-    payload: {},
+    payload: {
+      id: itemID,
+    },
   };
 };
 

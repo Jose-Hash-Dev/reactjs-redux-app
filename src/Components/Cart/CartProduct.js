@@ -12,9 +12,9 @@ import {
   DocumentCardDetails,
   DocumentCardImage,
   DocumentCardTitle,
-} from "@fluentui/react/lib/DocumentCard";
+} from "@fluentui/react";
 import { connect } from "react-redux";
-import { Icon } from "@fluentui/react/lib/Icon";
+import { Icon } from "@fluentui/react";
 import { adjustQuantity, removeFromCart } from "../../Redux/Shopping/Actions";
 import PropTypes from "prop-types";
 
