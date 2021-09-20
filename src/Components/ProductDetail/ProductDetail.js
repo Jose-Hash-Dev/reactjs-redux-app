@@ -7,6 +7,7 @@ import {
   Rating,
   Image,
   PrimaryButton,
+  DialogType,
 } from "@fluentui/react";
 import "./ProductDetail.scss";
 import {
@@ -15,13 +16,25 @@ import {
 } from "@fluentui/react/lib/DocumentCard";
 import { addToCart } from "../../Redux/Shopping/Actions";
 import { useDispatch, useSelector } from "react-redux";
+import PopUp from "../PopUp/PopUp";
+import { useBoolean } from "@fluentui/react-hooks";
+import { routes } from "../../Routes/Routes";
+
+const dialogContentProps = {
+  type: DialogType.close,
+  title: "Product was successfully added to your order!",
+  closeButtonAriaLabel: "Close",
+  subText: "Do you want to go order products or continue shopping?",
+};
 
 const ProductDetail = () => {
+  const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
   const [input, setInput] = useState(0);
   const current = useSelector((state) => state.shop.currentItem);
   const dispatch = useDispatch();
   const addToBasket = () => {
     dispatch(addToCart(current.id, input));
+    toggleHideDialog();
   };
 
   const onChangeAmount = React.useCallback((e, newValue) => {
@@ -47,7 +60,6 @@ const ProductDetail = () => {
           label="Amount:"
           labelPosition={Position.top}
           min={0}
-          max={20}
           step={1}
           defaultValue={input}
           incrementButtonAriaLabel="Increase value by 1"
@@ -77,6 +89,16 @@ const ProductDetail = () => {
       >
         Add To Cart
       </PrimaryButton>
+      <PopUp
+        toggleHideDialog={toggleHideDialog}
+        primaryLink={routes.cart}
+        secondaryLink={routes.home}
+        primaryText="Go To Cart"
+        secondaryText="Continue to Shop"
+        hideDialog={hideDialog}
+        dialogContentProps={dialogContentProps}
+        isSecondaryUsed={true}
+      />
     </DocumentCard>
   );
 };
