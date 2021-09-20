@@ -1,5 +1,5 @@
 import React from "react";
-import { Dialog, DialogFooter } from "@fluentui/react/lib/Dialog";
+import { Dialog, DialogFooter } from "@fluentui/react";
 import PopupButton from "./Button/PopupButton";
 import PropTypes from "prop-types";
 import "./PopUp.scss";
@@ -47,16 +47,16 @@ const PopUp = ({
 };
 
 PopUp.propTypes = {
-  toggleHideDialog: PropTypes.any,
-  hideDialog: PropTypes.any,
-  primaryLink: PropTypes.any,
-  primaryText: PropTypes.any,
-  secondaryLink: PropTypes.any,
-  secondaryText: PropTypes.any,
-  dialogContentProps: PropTypes.any,
-  link: PropTypes.any,
-  buttonText: PropTypes.any,
-  isSecondaryUsed: PropTypes.any,
+  toggleHideDialog: PropTypes.func,
+  hideDialog: PropTypes.bool,
+  primaryLink: PropTypes.string,
+  primaryText: PropTypes.string,
+  secondaryLink: PropTypes.string,
+  secondaryText: PropTypes.string,
+  dialogContentProps: PropTypes.object,
+  link: PropTypes.string,
+  buttonText: PropTypes.string,
+  isSecondaryUsed: PropTypes.bool,
 };
 
 export default PopUp;
