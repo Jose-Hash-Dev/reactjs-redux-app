@@ -17,8 +17,6 @@ const PopupButton = ({ link, buttonName }) => {
 
 PopupButton.propTypes = {
   link: PropTypes.string,
-  primaryButton: PropTypes.func,
-  secondaryButton: PropTypes.func,
   buttonName: PropTypes.string,
 };
 
