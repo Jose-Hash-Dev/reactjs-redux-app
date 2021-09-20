@@ -34,7 +34,7 @@ const CheckoutProduct = ({ item }) => {
 };
 
 CheckoutProduct.propTypes = {
-  item: PropTypes.any,
+  item: PropTypes.object,
 };
 
 export default CheckoutProduct;

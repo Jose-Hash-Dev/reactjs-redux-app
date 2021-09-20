@@ -1,41 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Cart.scss";
 import { useSelector } from "react-redux";
 import CartProduct from "./CartProduct";
 import { Text } from "@fluentui/react";
-import Checkout from "./Buttons/CheckOut";
+import CheckOutButton from "./Buttons/CheckOutButton";
 import { Link } from "react-router-dom";
 
 const CartList = () => {
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
   const cart = useSelector((state) => state.shop.cart);
 
-  useEffect(() => {
-    let items = 0;
-    let price = 0;
-
-    cart.forEach((item) => {
-      items += item.quantity;
-      price += item.quantity * parseInt(item.price);
-    });
-
-    setTotalItems(items);
-    setTotalPrice(price);
-  }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
+  const total = () => {
+    let sum = 0;
+    cart.map((item) => (sum += parseFloat(item.price) * item.quantity));
+    return sum;
+  };
   return (
     <div>
       {cart.map((item) => (
         <CartProduct key={item.id} item={item} />
       ))}
       <div className="shopping-cart-total-cost-container">
-        {totalPrice ? (
+        {total() > 0 ? (
           <>
             <Text className="shopping-cart-total-cost-container__total-cost">
-              Total Cost: {totalPrice}$
+              Total Cost: {total()}$
             </Text>
             <Link to={`/checkout`}>
-              <Checkout />
+              <CheckOutButton />
             </Link>
           </>
         ) : (

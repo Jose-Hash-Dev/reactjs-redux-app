@@ -24,7 +24,6 @@ const CartProduct = ({ item, adjustQuantity, removeFromCart }) => {
     setInput(e.target.value);
     adjustQuantity(item.id, e.target.value);
   };
-
   return (
     <>
       <DocumentCard
@@ -60,7 +59,7 @@ const CartProduct = ({ item, adjustQuantity, removeFromCart }) => {
             <SpinButton
               labelPosition={Position.top}
               defaultValue={input}
-              min={1}
+              min={input}
               step={1}
               incrementButtonAriaLabel="Increase value by 1"
               decrementButtonAriaLabel="Decrease value by 1"

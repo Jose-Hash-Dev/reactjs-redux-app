@@ -17,7 +17,7 @@ const INITIAL_STATE = {
     {
       id: 2,
       image: book2,
-      price: "15$",
+      price: "10$",
       title: "Inferno",
       description:
         "This book 'Inferno' follows his usual writing style, format, and layout. His stories are always well-written and clearly, a lot of research goes into them. This book certainly raises some complex and difficult issues around mankind's growing population and the earth's limited resources, and all of this get's entwined in religion, symbols, Italian history, and the works of Dante.",
@@ -26,7 +26,7 @@ const INITIAL_STATE = {
     {
       id: 3,
       image: book3,
-      price: "29.50$",
+      price: "5$",
       title: "The Lost Symbol",
       description:
         "The Lost Symbol is a masterstroke of storytelling--a deadly race through a real-world labyrinth of codes, secrets, and unseen truths . . . all under the watchful eye of Brown’s most terrifying villain to date. Set within the hidden chambers, tunnels, and temples of Washington, D.C.,",
@@ -34,6 +34,7 @@ const INITIAL_STATE = {
     },
   ],
   cart: [],
+  order: [],
   currentItem: null,
 };
 
@@ -82,6 +83,22 @@ const shopReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentItem: action.payload,
+      };
+    }
+    case actionTypes.CLEAR_CART: {
+      return {
+        ...state,
+        cart: [],
+      };
+    }
+    case actionTypes.SAVE_ORDER: {
+      return {
+        ...state,
+        order: state.cart.map((item) => ({
+          ...item,
+          quantity: +item.quantity,
+          user: action.payload.user,
+        })),
       };
     }
     default:
