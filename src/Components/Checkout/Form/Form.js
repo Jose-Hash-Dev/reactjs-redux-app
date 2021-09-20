@@ -33,15 +33,12 @@ const Form = () => {
     toggleHideDialog();
   };
   const onEmailInput = (e) => {
-    e.preventDefault();
     setEmail(e.target.value);
   };
   const onConfirmEmailInput = (e) => {
-    e.preventDefault();
     setConfirmEmail(e.target.value);
   };
   const onNameSurnameInput = (e) => {
-    e.preventDefault();
     setNameSurname(e.target.value);
   };
   const isEmail = (value) => {
