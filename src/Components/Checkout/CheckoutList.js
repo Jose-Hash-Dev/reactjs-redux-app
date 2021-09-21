@@ -4,21 +4,17 @@ import CheckoutProduct from "./CheckoutProduct";
 import { Text } from "@fluentui/react";
 import "./Checkout.scss";
 import Form from "./Form/Form";
+import { totalPrice } from "../../Redux/Shopping/Reducer";
 
 const CheckoutList = () => {
   const cart = useSelector((state) => state.shop.cart);
-  const total = () => {
-    let sum = 0;
-    cart.map((item) => (sum += parseFloat(item.price) * item.quantity));
-    return sum;
-  };
   return (
     <div className="checkout">
       {cart.map((item) => (
         <CheckoutProduct key={item.id} item={item} />
       ))}
       <Text className="checkout-total-cost-container__total-cost">
-        Total Cost: {total()}$
+        Total Cost: {totalPrice()}$
       </Text>
       <hr />
       <Form />

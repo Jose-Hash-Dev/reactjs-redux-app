@@ -20,10 +20,10 @@ import PropTypes from "prop-types";
 
 const CartProduct = ({ item, adjustQuantity, removeFromCart }) => {
   const [input, setInput] = useState(item.quantity);
-  const onChangeHandler = (e) => {
-    setInput(e.target.value);
-    adjustQuantity(item.id, e.target.value);
-  };
+  const onChangeAmount = React.useCallback((e, newValue) => {
+    setInput(newValue);
+    adjustQuantity(item.id, newValue);
+  });
   return (
     <>
       <DocumentCard
@@ -59,13 +59,12 @@ const CartProduct = ({ item, adjustQuantity, removeFromCart }) => {
             <SpinButton
               labelPosition={Position.top}
               defaultValue={input}
-              min={input}
+              min={1}
               step={1}
               incrementButtonAriaLabel="Increase value by 1"
               decrementButtonAriaLabel="Decrease value by 1"
               className="shopping-cart-price-spinner-container__spinner"
-              onChange={onChangeHandler}
-              onClick={onChangeHandler}
+              onChange={onChangeAmount}
             />
           </div>
         </DocumentCardDetails>

@@ -2,6 +2,7 @@ import * as actionTypes from "./Types";
 import book1 from "../../assets/Images/book1.jpg";
 import book2 from "../../assets/Images/book2.jpg";
 import book3 from "../../assets/Images/book3.jpg";
+import { useSelector } from "react-redux";
 
 const INITIAL_STATE = {
   products: [
@@ -36,6 +37,12 @@ const INITIAL_STATE = {
   cart: [],
   order: [],
   currentItem: null,
+};
+export const totalPrice = () => {
+  const cart = useSelector((state) => state.shop.cart);
+  let sum = 0;
+  cart.map((item) => (sum += parseFloat(item.price) * item.quantity));
+  return sum;
 };
 
 const shopReducer = (state = INITIAL_STATE, action) => {
