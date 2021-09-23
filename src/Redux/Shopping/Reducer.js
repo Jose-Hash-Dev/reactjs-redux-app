@@ -1,13 +1,5 @@
 import * as actionTypes from "./Types";
-import { useSelector } from "react-redux";
 import { INITIAL_STATE } from "./Model";
-
-export const totalPrice = () => {
-  const cart = useSelector((state) => state.shop.cart);
-  let sum = 0;
-  cart.map((item) => (sum += parseFloat(item.price) * item.quantity));
-  return sum;
-};
 
 const shopReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
