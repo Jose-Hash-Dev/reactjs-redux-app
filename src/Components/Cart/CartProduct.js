@@ -20,9 +20,10 @@ import PropTypes from "prop-types";
 
 const CartProduct = ({ item, adjustQuantity, removeFromCart }) => {
   const [input, setInput] = useState(item.quantity);
-  const onChangeAmount = React.useCallback((e, newValue) => {
+  const onChangeAmount = React.useCallback((e, newValue, previousValue) => {
+    previousValue = item.quantity;
     setInput(newValue);
-    adjustQuantity(item.id, newValue);
+    adjustQuantity(item.id, newValue, previousValue);
   });
   return (
     <>
@@ -80,7 +81,8 @@ CartProduct.propTypes = {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    adjustQuantity: (id, value) => dispatch(adjustQuantity(id, value)),
+    adjustQuantity: (id, value, previousValue) =>
+      dispatch(adjustQuantity(id, value, previousValue)),
     removeFromCart: (id) => dispatch(removeFromCart(id)),
   };
 };

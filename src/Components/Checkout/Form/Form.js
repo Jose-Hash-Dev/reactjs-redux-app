@@ -92,7 +92,19 @@ const Form = () => {
           dialogContentProps={dialogContentProps}
           isSecondaryUsed={false}
         />
-        <PrimaryButton onClick={submitOrder}>Order</PrimaryButton>
+        <div>
+          <PrimaryButton
+            className="form__submit"
+            disabled={
+              !email.match(regexEmail) ||
+              email !== confirmEmail ||
+              !nameSurname.match(regexName)
+            }
+            onClick={submitOrder}
+          >
+            Order
+          </PrimaryButton>
+        </div>
       </div>
     </div>
   );
