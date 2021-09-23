@@ -13,18 +13,23 @@ import {
   DocumentCardImage,
   DocumentCardTitle,
 } from "@fluentui/react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Icon } from "@fluentui/react";
-import { adjustQuantity, removeFromCart } from "../../Redux/Shopping/Actions";
 import PropTypes from "prop-types";
+import { adjustQuantity, removeFromCart } from "../../Redux/Shopping/Actions";
 
-const CartProduct = ({ item, adjustQuantity, removeFromCart }) => {
+const CartProduct = ({ item }) => {
   const [input, setInput] = useState(item.quantity);
   const onChangeAmount = React.useCallback((e, newValue, previousValue) => {
     previousValue = item.quantity;
     setInput(newValue);
-    adjustQuantity(item.id, newValue, previousValue);
+    dispatch(adjustQuantity(item.id, newValue, previousValue));
   });
+  const dispatch = useDispatch();
+  const removeProduct = () => {
+    dispatch(removeFromCart(item.id, item.quantity));
+    console.log(item.quantity);
+  };
   return (
     <>
       <DocumentCard
@@ -50,7 +55,7 @@ const CartProduct = ({ item, adjustQuantity, removeFromCart }) => {
             <Icon
               className="shopping-cart-title-button-container__close-button"
               iconName="ChromeClose"
-              onClick={() => removeFromCart(item.id)}
+              onClick={removeProduct}
             />
           </div>
           <div className="shopping-cart-price-spinner-container">
@@ -79,12 +84,4 @@ CartProduct.propTypes = {
   removeFromCart: PropTypes.any,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    adjustQuantity: (id, value, previousValue) =>
-      dispatch(adjustQuantity(id, value, previousValue)),
-    removeFromCart: (id) => dispatch(removeFromCart(id)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(CartProduct);
+export default CartProduct;
