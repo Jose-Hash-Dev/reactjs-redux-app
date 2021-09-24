@@ -12,19 +12,24 @@ import {
   DocumentCardDetails,
   DocumentCardImage,
   DocumentCardTitle,
-} from "@fluentui/react/lib/DocumentCard";
-import { connect } from "react-redux";
-import { Icon } from "@fluentui/react/lib/Icon";
-import { adjustQuantity, removeFromCart } from "../../Redux/Shopping/Actions";
+} from "@fluentui/react";
+import { useDispatch } from "react-redux";
+import { Icon } from "@fluentui/react";
 import PropTypes from "prop-types";
+import { adjustQuantity, removeFromCart } from "../../Redux/Shopping/Actions";
 
-const CartProduct = ({ item, adjustQuantity, removeFromCart }) => {
+const CartProduct = ({ item }) => {
   const [input, setInput] = useState(item.quantity);
-  const onChangeHandler = (e) => {
-    setInput(e.target.value);
-    adjustQuantity(item.id, e.target.value);
+  const onChangeAmount = React.useCallback((e, newValue, previousValue) => {
+    previousValue = item.quantity;
+    setInput(newValue);
+    dispatch(adjustQuantity(item.id, newValue, previousValue));
+  });
+  const dispatch = useDispatch();
+  const removeProduct = () => {
+    dispatch(removeFromCart(item.id, item.quantity));
+    console.log(item.quantity);
   };
-
   return (
     <>
       <DocumentCard
@@ -50,7 +55,7 @@ const CartProduct = ({ item, adjustQuantity, removeFromCart }) => {
             <Icon
               className="shopping-cart-title-button-container__close-button"
               iconName="ChromeClose"
-              onClick={() => removeFromCart(item.id)}
+              onClick={removeProduct}
             />
           </div>
           <div className="shopping-cart-price-spinner-container">
@@ -65,8 +70,7 @@ const CartProduct = ({ item, adjustQuantity, removeFromCart }) => {
               incrementButtonAriaLabel="Increase value by 1"
               decrementButtonAriaLabel="Decrease value by 1"
               className="shopping-cart-price-spinner-container__spinner"
-              onChange={onChangeHandler}
-              onClick={onChangeHandler}
+              onChange={onChangeAmount}
             />
           </div>
         </DocumentCardDetails>
@@ -80,11 +84,4 @@ CartProduct.propTypes = {
   removeFromCart: PropTypes.any,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    adjustQuantity: (id, value) => dispatch(adjustQuantity(id, value)),
-    removeFromCart: (id) => dispatch(removeFromCart(id)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(CartProduct);
+export default CartProduct;
