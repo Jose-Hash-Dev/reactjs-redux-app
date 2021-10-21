@@ -8,25 +8,24 @@ import {
   Image,
   PrimaryButton,
   DialogType,
-} from "@fluentui/react";
-import "./ProductDetail.scss";
-import {
+  Separator,
   DocumentCard,
   DocumentCardTitle,
-} from "@fluentui/react/lib/DocumentCard";
+} from "@fluentui/react";
+import "./ProductDetail.scss";
 import { addToCart } from "../../Redux/Shopping/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import PopUp from "../PopUp/PopUp";
 import { useBoolean } from "@fluentui/react-hooks";
 import { routes } from "../../Routes/Routes";
+import "../PopUp/PopUp.scss";
 
 const dialogContentProps = {
   type: DialogType.close,
-  title: "Product was successfully added to your order!",
+  title: "Product was successfully added to your cart!",
   closeButtonAriaLabel: "Close",
-  subText: "Do you want to go order products or continue shopping?",
+  subText: "Do you want to continue shopping or go to cart page?",
 };
-
 const ProductDetail = () => {
   const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
   const [input, setInput] = useState(0);
@@ -40,12 +39,18 @@ const ProductDetail = () => {
   const onChangeAmount = React.useCallback((e, newValue) => {
     setInput(newValue);
   });
+  const getTitleLimit = () => {
+    if (current.title.length > 50) {
+      return `${current.title.substring(0, 50)}...`;
+    }
+    return current.title;
+  };
 
   return (
     <DocumentCard className="product-detail">
       <DocumentCardTitle
         className="product-detail__title"
-        title={current.title}
+        title={getTitleLimit()}
         shouldTruncate
       />
       <Image
@@ -54,6 +59,7 @@ const ProductDetail = () => {
         src={current.image}
         alt={current.alt}
       />
+      <Separator />
       <Text className="product-detail__description">{current.description}</Text>
       <div className="product-detail-price-amount-container">
         <SpinButton
@@ -69,7 +75,7 @@ const ProductDetail = () => {
         />
         <div>
           <Text className="product-detail-price-amount-container__price">
-            {current.price}
+            {current.price}$
           </Text>
           <Rating
             defaultRating={0}
@@ -81,6 +87,7 @@ const ProductDetail = () => {
           />
         </div>
       </div>
+      <Separator />
       <PrimaryButton
         className="add-cart-button"
         onClick={() => addToBasket()}

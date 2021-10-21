@@ -28,12 +28,11 @@ const CartProduct = ({ item }) => {
   const dispatch = useDispatch();
   const removeProduct = () => {
     dispatch(removeFromCart(item.id, item.quantity));
-    console.log(item.quantity);
   };
   return (
     <>
       <DocumentCard
-        className="shopping-cart"
+        className="shopping-cart__product-body"
         key={item.id}
         aria-label={item.alt}
         type={DocumentCardType.compact}
@@ -60,7 +59,7 @@ const CartProduct = ({ item }) => {
           </div>
           <div className="shopping-cart-price-spinner-container">
             <Text className="shopping-cart-price-spinner-container__price">
-              {item.price}
+              {item.price}$
             </Text>
             <SpinButton
               labelPosition={Position.top}
@@ -79,9 +78,9 @@ const CartProduct = ({ item }) => {
   );
 };
 CartProduct.propTypes = {
-  item: PropTypes.any,
-  adjustQuantity: PropTypes.any,
-  removeFromCart: PropTypes.any,
+  item: PropTypes.object,
+  adjustQuantity: PropTypes.number,
+  removeFromCart: PropTypes.func,
 };
 
 export default CartProduct;

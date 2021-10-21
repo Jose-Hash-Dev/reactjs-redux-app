@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import CheckoutProduct from "./CheckoutProduct";
-import { Text } from "@fluentui/react";
+import { Separator, Text } from "@fluentui/react";
 import "./Checkout.scss";
 import Form from "./Form/Form.js";
 
@@ -13,10 +13,11 @@ const CheckoutList = () => {
       {cart.map((item) => (
         <CheckoutProduct key={item.id} item={item} />
       ))}
+      <Separator />
       <Text className="checkout-total-cost-container__total-cost">
-        Total Cost: {totalPrice}
+        Total Cost: {totalPrice}$
       </Text>
-      <hr />
+      <Separator />
       <Form />
     </div>
   );

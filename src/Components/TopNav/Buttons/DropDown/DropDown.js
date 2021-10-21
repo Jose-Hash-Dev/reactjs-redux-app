@@ -1,11 +1,11 @@
 import React from "react";
-import { Icon } from "@fluentui/react/lib/Icon";
+import { Icon } from "@fluentui/react";
 import "./DropDown.scss";
 
 function DropDown() {
   return (
     <div className="dropdown-button">
-      <Icon iconName="GlobalNavButton" />
+      <Icon iconName="BulletedListTextMirrored" />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import React from "react";
-import { Icon } from "@fluentui/react/lib/Icon";
 import { useHistory } from "react-router-dom";
 import "./NavigateBack.scss";
+import { Icon } from "@fluentui/react";
+import PropTypes from "prop-types";
 
 const NavigateBack = () => {
   const history = useHistory();
@@ -14,6 +15,10 @@ const NavigateBack = () => {
       />
     </div>
   );
+};
+
+NavigateBack.propTypes = {
+  isUsed: PropTypes.bool,
 };
 
 export default NavigateBack;

@@ -7,31 +7,32 @@ import ProductDetail from "./Components/ProductDetail/ProductDetail";
 import CartList from "./Components/Cart/CartList";
 import TopNav from "./Components/TopNav/TopNav";
 import CheckoutList from "./Components/Checkout/CheckoutList";
+import { routes } from "./Routes/Routes";
 
 initializeIcons();
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
-      <TopNav />
       <Switch>
-        <Route exact path="/">
-          <ProductList />
-        </Route>
-        <Route exact path="/products">
+        <Route exact path={routes.home}>
+          <TopNav />
           <ProductList />
         </Route>
         <Route path="/product/:bookId">
+          <TopNav />
           <ProductDetail />
         </Route>
-        <Route path="/cart">
+        <Route path={routes.cart}>
+          <TopNav isBackUsed={true} />
           <CartList />
         </Route>
-        <Route path="/checkout">
+        <Route path={routes.checkout}>
+          <TopNav isBackUsed={true} />
           <CheckoutList />
         </Route>
       </Switch>
     </BrowserRouter>
   );
-}
+};
 export default App;
