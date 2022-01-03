@@ -1,17 +1,16 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import "./NavigateBack.scss";
-import { Icon } from "@fluentui/react";
 import PropTypes from "prop-types";
+import { NavigateBackStyle } from "./Styles/NavigateBackStyle";
 
 const NavigateBack = () => {
   const history = useHistory();
   return (
     <div className="cart-button">
-      <Icon
-        className="back-button"
+      <NavigateBackStyle
         onClick={() => history.goBack()}
         iconName="ChromeBack"
+        color="primary"
       />
     </div>
   );

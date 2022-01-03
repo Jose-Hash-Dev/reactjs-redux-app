@@ -38,15 +38,29 @@ export const loadCurrentItem = (item) => {
   };
 };
 
-export const saveOrder = (name, email) => {
+export const saveOrder = () => {
   return {
     type: actionTypes.SAVE_ORDER,
-    payload: {
-      user: {
-        name: name,
-        email: email,
-      },
-    },
+  };
+};
+export const saveOrderDetails = (
+  name,
+  email,
+  address,
+  country,
+  delivery,
+  deliveryCost,
+  totalCost
+) => {
+  return {
+    type: actionTypes.SAVE_ORDER_DETAILS,
+    name: name,
+    email: email,
+    address: address,
+    country: country,
+    delivery: delivery,
+    deliveryCost: deliveryCost,
+    totalCost: totalCost,
   };
 };
 

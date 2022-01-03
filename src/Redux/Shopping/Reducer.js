@@ -72,8 +72,20 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         order: state.cart.map((item) => ({
           ...item,
           quantity: +item.quantity,
-          user: action.payload.user,
+          user: action.name,
+          email: action.email,
         })),
+      };
+    }
+    case actionTypes.SAVE_ORDER_DETAILS: {
+      return {
+        ...state,
+        orderUserName: action.name,
+        orderUserEmail: action.email,
+        orderUserCountry: action.country,
+        orderUserAddress: action.address,
+        orderUSerDelivery: action.delivery,
+        ProductsCost: action.totalCost,
       };
     }
     default:

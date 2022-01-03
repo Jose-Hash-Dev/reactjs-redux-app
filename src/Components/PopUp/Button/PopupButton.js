@@ -2,6 +2,7 @@ import React from "react";
 import { PrimaryButton } from "@fluentui/react";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
+import "./PopupButton.scss";
 
 const PopupButton = ({ link, buttonName }) => {
   const history = useHistory();

@@ -1,36 +1,33 @@
 import React from "react";
-import "./Cart.scss";
 import { useSelector } from "react-redux";
 import CartProduct from "./CartProduct";
-import { Separator, Text } from "@fluentui/react";
 import CheckOutButton from "./Buttons/CheckOutButton";
 import { Link } from "react-router-dom";
 import { routes } from "../../Routes/Routes";
+import { DefaultText, DividerStyle } from "./Styles/CartListStyle";
+import { Divider } from "@mui/material";
 
 const CartList = () => {
   const cart = useSelector((state) => state.shop.cart);
   const totalPrice = useSelector((state) => state.shop.sum);
   return (
-    <div className="shopping-cart">
+    <div>
       {cart.map((item) => (
         <CartProduct key={item.id} item={item} />
       ))}
-      <div className="shopping-cart-total-cost-container">
+      <div>
         {totalPrice ? (
           <>
-            <Separator />
-            <Text className="shopping-cart-total-cost-container__total-cost">
-              Total Cost: {totalPrice}$
-            </Text>
-            <Separator />
-            <Link to={routes.checkout}>
+            <DefaultText>Total Cost: {totalPrice}$</DefaultText>
+            <DividerStyle>
+              <Divider variant="middle" />
+            </DividerStyle>
+            <Link to={routes.checkout} style={{ textDecoration: "none" }}>
               <CheckOutButton />
             </Link>
           </>
         ) : (
-          <Text className="shopping-cart-total-cost-container__total-cost">
-            Cart is Empty
-          </Text>
+          <DefaultText>Cart is Empty</DefaultText>
         )}
       </div>
     </div>

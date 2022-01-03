@@ -1,9 +1,13 @@
 import React from "react";
-import { PrimaryButton } from "@fluentui/react";
-import "./CheckOutButton.scss";
+import { Button } from "@mui/material";
+import { CheckoutButtonStyle } from "./CheckoutButtonStyle";
 
-export const CheckoutButton = () => {
-  return <PrimaryButton className="checkout-button" text="Checkout" />;
+const CheckoutButton = () => {
+  return (
+    <CheckoutButtonStyle>
+      <Button variant="contained">Checkout</Button>
+    </CheckoutButtonStyle>
+  );
 };
 
 export default CheckoutButton;

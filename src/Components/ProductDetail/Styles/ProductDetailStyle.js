@@ -10,14 +10,14 @@ export const ProductDetailContainer = styled.div`
 `;
 export const Title = styled.div`
   font-size: 25px;
-  color: #fd8b01;
+  color: #000080;
   margin-bottom: 20px;
   font-family: "Roboto Light", serif;
 `;
 export const Price = styled.div`
   font-size: 25px;
   margin-right: 5px;
-  color: #fd8b01;
+  color: #000080;
   font-family: "Roboto Light", serif;
 `;
 export const PriceAmountContainer = styled.div`
@@ -45,4 +45,7 @@ export const Amount = styled.div`
 
 export const Spinner = styled.div`
   //margin-top: 50px;
+`;
+export const DividerStyle = styled.div`
+  margin-top: 10px;
 `;

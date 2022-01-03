@@ -1,12 +1,14 @@
 import React from "react";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { FavouriteIconStyle } from "./FavouriteStyle";
+import { AddToCartStyle } from "./AddToCartStyle";
+import PropTypes from "prop-types";
 
-const DropDownButton = () => {
+const AddToCartIcon = ({ handeClick }) => {
   return (
-    <FavouriteIconStyle>
-      <FavoriteIcon color="primary" fontSize="small" />
-    </FavouriteIconStyle>
+    <AddToCartStyle fontSize="small" color="primary" onClick={handeClick} />
   );
 };
-export default DropDownButton;
+export default AddToCartIcon;
+
+AddToCartIcon.propTypes = {
+  handeClick: PropTypes.func,
+};

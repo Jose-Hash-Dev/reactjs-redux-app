@@ -4,11 +4,6 @@ import PopupButton from "./Button/PopupButton";
 import PropTypes from "prop-types";
 import "./PopUp.scss";
 
-const dialogStyles = {
-  main: {
-    maxWidth: 450,
-  },
-};
 const PopUp = ({
   toggleHideDialog,
   hideDialog,
@@ -19,29 +14,27 @@ const PopUp = ({
   secondaryText,
   isSecondaryUsed,
 }) => {
-  const modalProps = () => ({
-    isBlocking: false,
-    styles: dialogStyles,
-  });
-
   return (
     <Dialog
       className="popup"
       hidden={hideDialog}
       onDismiss={toggleHideDialog}
       dialogContentProps={dialogContentProps}
-      modalProps={modalProps}
     >
-      <DialogFooter>
-        {isSecondaryUsed ? (
-          <div className="popup__button">
-            <PopupButton buttonName={primaryText} link={primaryLink} />
-            <PopupButton buttonName={secondaryText} link={secondaryLink} />
-          </div>
-        ) : (
-          <PopupButton buttonName={primaryText} link={primaryLink} />
-        )}
-      </DialogFooter>
+      <div style={{ justifyContent: "center" }}>
+        <DialogFooter>
+          {isSecondaryUsed ? (
+            <div>
+              <PopupButton buttonName={primaryText} link={primaryLink} />
+              <PopupButton buttonName={secondaryText} link={secondaryLink} />
+            </div>
+          ) : (
+            <div>
+              <PopupButton buttonName={primaryText} link={primaryLink} />
+            </div>
+          )}
+        </DialogFooter>
+      </div>
     </Dialog>
   );
 };

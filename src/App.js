@@ -7,6 +7,7 @@ import ProductDetail from "./Components/ProductDetail/ProductDetail";
 import CartList from "./Components/Cart/CartList";
 import TopNav from "./Components/TopNav/TopNav";
 import CheckoutList from "./Components/Checkout/CheckoutList";
+import OrderList from "./Components/Order/OrderList";
 import { routes } from "./Routes/Routes";
 
 initializeIcons();
@@ -16,11 +17,11 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path={routes.home}>
-          <TopNav />
+          <TopNav isBackUsed={true} />
           <ProductList />
         </Route>
         <Route path="/product/:bookId">
-          <TopNav />
+          <TopNav isBackUsed={true} />
           <ProductDetail />
         </Route>
         <Route path={routes.cart}>
@@ -30,6 +31,10 @@ const App = () => {
         <Route path={routes.checkout}>
           <TopNav isBackUsed={true} />
           <CheckoutList />
+        </Route>
+        <Route exact path={routes.order}>
+          <TopNav isBackUsed={true} />
+          <OrderList />
         </Route>
       </Switch>
     </BrowserRouter>

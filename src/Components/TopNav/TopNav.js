@@ -1,41 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ShoppingCart from "./Buttons/ShoppingCart/ShoppingCart";
 import DropDown from "./Buttons/DropDown/DropDown";
 import { Link } from "react-router-dom";
-import "./TopNav.scss";
+import "./Sass Styles/TopNav.scss";
 import logo from "../../assets/Images/logo.png";
-import { useSelector } from "react-redux";
-import { Text } from "@fluentui/react";
-import NavigateBack from "./Buttons/NavigateBack/NavigateBack";
+import NavigateBack from "./Buttons/NavigateBack/NavigateBack.js";
+import { routes } from "../../Routes/Routes";
+import PropTypes from "prop-types";
+import {
+  NavigationContainer,
+  LogoBackContainer,
+  HamburgerCartContainer,
+  Logo,
+  // Logo,
+} from "./Styles/TopNavStyle";
 
-const TopNav = () => {
-  const [cartCount, setCartCount] = useState(0);
-  const cart = useSelector((state) => state.shop.cart);
-  useEffect(() => {
-    let count = 0;
-    cart.forEach((item) => {
-      count += item.quantity;
-    });
-    setCartCount(count);
-  }, [cart, cartCount]);
+const TopNav = ({ isBackUsed }) => {
   return (
-    <div className="navigation">
-      <div className="navigation-logo-back-container">
-        <NavigateBack />
-        <Link to={"/products"}>
-          <img
-            className="navigation-logo-back-container__logo"
-            src={logo}
-            alt="Logo"
-          />
+    <NavigationContainer>
+      <LogoBackContainer>
+        {isBackUsed ? <NavigateBack /> : ""}
+        <Link to={routes.home}>
+          <Logo src={logo} />
         </Link>
-      </div>
-      <div className="navigation-button-container">
+      </LogoBackContainer>
+      <HamburgerCartContainer>
         <ShoppingCart />
-        <Text className="navigation__badge">{cartCount}</Text>
         <DropDown />
-      </div>
-    </div>
+      </HamburgerCartContainer>
+    </NavigationContainer>
   );
 };
+
+TopNav.propTypes = {
+  isBackUsed: PropTypes.bool,
+};
+
 export default TopNav;

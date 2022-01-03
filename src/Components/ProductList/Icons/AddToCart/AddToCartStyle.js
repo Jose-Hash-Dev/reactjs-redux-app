@@ -1,6 +1,6 @@
 import styled from "styled-components";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
-export const FavouriteIconStyle = styled.div`
+export const AddToCartStyle = styled(AddShoppingCartIcon)`
   cursor: pointer;
 `;

@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
-export const ProductListStyle = styled.div`
-  cursor: pointer;
-  max-width: 400px;
-  padding: 20px;
+export const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+export const ProductCardContainer = styled.div`
+  max-width: 185px;
+  width: 400px;
+  padding: 10px;
+  margin-right: 8px;
   text-align: center;
-  margin-bottom: 15px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
 `;
@@ -17,13 +21,19 @@ export const Details = styled.div`
   justify-content: space-between;
 `;
 export const Title = styled.div`
-  font-size: 20px;
-  color: #fd8b01;
+  font-size: 15px;
+  color: #000080;
   font-family: "Roboto Light", serif;
+  text-decoration: none;
+  margin-bottom: 5px;
 `;
 export const Price = styled.div`
-  font-size: 20px;
+  font-size: 15px;
   margin-right: 5px;
-  color: #fd8b01;
+  color: #000080;
   font-family: "Roboto Light", serif;
+`;
+export const IconsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
