@@ -31,55 +31,59 @@ const OrderList = () => {
   const productCost = useSelector((state) => state.shop.ProductsCost);
   return (
     <>
-      <Divider sx={{ marginBottom: 1, marginTop: 1 }}>
-        <Chip label="Product Details" />
-      </Divider>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 420 }} size="small" aria-label="a dense table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Product</TableCell>
-              <TableCell align="right">Price</TableCell>
-              <TableCell align="right">Quantity</TableCell>
-              <TableCell align="right">Subtotal</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {order.map((item) => (
-              <TableRow
-                key={item.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {item.title}
-                </TableCell>
-                <TableCell align="right">{item.price}$</TableCell>
-                <TableCell align="right">{item.quantity}</TableCell>
-                <TableCell align="right">
-                  {item.price * item.quantity}$
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TotalCostContainer>
-        <Price>Products Cost: {productCost.sum}$</Price>
-        {country.map((countryCost) => (
-          <div key={countryCost.id}>
-            {userCountry.country === countryCost.name ? (
-              <div>
-                <Price>Delivery Cost: {countryCost.cost}$</Price>
-                <Price>
-                  Overall Cost: {countryCost.cost + productCost.sum}$
-                </Price>
-              </div>
-            ) : undefined}
-          </div>
-        ))}
-      </TotalCostContainer>
       {order.length > 0 ? (
         <>
+          <Divider sx={{ marginBottom: 1, marginTop: 1 }}>
+            <Chip label="Product Details" />
+          </Divider>
+          <TableContainer component={Paper}>
+            <Table
+              sx={{ minWidth: 420 }}
+              size="small"
+              aria-label="a dense table"
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell>Product</TableCell>
+                  <TableCell align="right">Price</TableCell>
+                  <TableCell align="right">Quantity</TableCell>
+                  <TableCell align="right">Subtotal</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {order.map((item) => (
+                  <TableRow
+                    key={item.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {item.title}
+                    </TableCell>
+                    <TableCell align="right">{item.price}$</TableCell>
+                    <TableCell align="right">{item.quantity}</TableCell>
+                    <TableCell align="right">
+                      {item.price * item.quantity}$
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TotalCostContainer>
+            <Price>Products Cost: {productCost.sum}$</Price>
+            {country.map((countryCost) => (
+              <div key={countryCost.id}>
+                {userCountry.country === countryCost.name ? (
+                  <div>
+                    <Price>Delivery Cost: {countryCost.cost}$</Price>
+                    <Price>
+                      Overall Cost: {countryCost.cost + productCost.sum}$
+                    </Price>
+                  </div>
+                ) : undefined}
+              </div>
+            ))}
+          </TotalCostContainer>
           <Divider sx={{ marginBottom: 1, marginTop: 1 }}>
             <Chip label="Customer Details" />
           </Divider>

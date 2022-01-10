@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import { IconButton, Tooltip } from "@fluentui/react";
 import { useSelector } from "react-redux";
-import product from "../../../ProductList/Product";
 
 const ShoppingCart = () => {
   const cart = useSelector((state) => state.shop.cart);
@@ -87,15 +86,15 @@ const ShoppingCart = () => {
       >
         {cart.map((item) => (
           <div key={item.id}>
-            <Link
-              to={`/product/${product.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <MenuItem sx={{ fontSize: 10 }}>
-                <Avatar sx={{ fontSize: 10 }} src={item.image} /> {item.title} x{" "}
-                {item.quantity}
-              </MenuItem>
-            </Link>
+            {/*<Link*/}
+            {/*  to={`/product/${product.id}`}*/}
+            {/*  style={{ textDecoration: "none" }}*/}
+            {/*>*/}
+            <MenuItem sx={{ fontSize: 10 }}>
+              <Avatar sx={{ fontSize: 10 }} src={item.image} /> {item.title} x{" "}
+              {item.quantity}
+            </MenuItem>
+            {/*</Link>*/}
           </div>
         ))}
         <Divider />
@@ -104,7 +103,7 @@ const ShoppingCart = () => {
             <Typography
               sx={{
                 marginLeft: 1,
-                fontSize: 12.5,
+                fontSize: 10,
                 marginBottom: 1,
                 marginTop: 1,
               }}
