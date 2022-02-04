@@ -1,0 +1,25 @@
+.product-list {
+  display: grid;
+  max-width: 400px;
+  padding: 25px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+  &-details {
+    flex-direction: row;
+    &__title {
+      font-size: 25px;
+      color: #fd8b01;
+    }
+    &__price {
+      justify-content: flex-end;
+      font-size: 25px;
+      margin-right: 5px;
+      color: #fd8b01;
+    }
+    &__image {
+      border-radius: 10px;
+    }
+  }
+}

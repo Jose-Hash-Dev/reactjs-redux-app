@@ -1,32 +1,35 @@
 import React, { useState } from "react";
-import {
-  Text,
-  ImageFit,
-  SpinButton,
-  Position,
-  Rating,
-  Image,
-  PrimaryButton,
-  DialogType,
-} from "@fluentui/react";
-import "./ProductDetail.scss";
-import {
-  DocumentCard,
-  DocumentCardTitle,
-} from "@fluentui/react/lib/DocumentCard";
+import { DialogType } from "@fluentui/react";
 import { addToCart } from "../../Redux/Shopping/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import PopUp from "../PopUp/PopUp";
 import { useBoolean } from "@fluentui/react-hooks";
 import { routes } from "../../Routes/Routes";
+import {
+  Description,
+  PriceAmountContainer,
+  PriceRatingContainer,
+  ProductDetailContainer,
+  Spinner,
+  Title,
+  Price,
+  DividerStyle,
+} from "./Styles/ProductDetailStyle";
+import {
+  ButtonGroup,
+  CardMedia,
+  Rating,
+  Button,
+  Divider,
+  Chip,
+} from "@mui/material";
 
 const dialogContentProps = {
   type: DialogType.close,
-  title: "Product was successfully added to your order!",
+  title: "Product was successfully added to your cart!",
   closeButtonAriaLabel: "Close",
-  subText: "Do you want to go order products or continue shopping?",
+  subText: "Do you want to continue shopping or go to cart page?",
 };
-
 const ProductDetail = () => {
   const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
   const [input, setInput] = useState(0);
@@ -36,59 +39,67 @@ const ProductDetail = () => {
     dispatch(addToCart(current.id, input));
     toggleHideDialog();
   };
-
-  const onChangeAmount = React.useCallback((e, newValue) => {
-    setInput(newValue);
-  });
+  // const onChangeAmount = React.useCallback((e, newValue) => {
+  //   setInput(newValue);
+  // });
+  const Increment = () => {
+    setInput(input + 1);
+  };
+  const Decrement = () => {
+    if (input > 0) {
+      setInput(input - 1);
+    }
+  };
+  const getTitleLimit = () => {
+    if (current.title.length > 50) {
+      return `${current.title.substring(0, 50)}...`;
+    }
+    return current.title;
+  };
 
   return (
-    <DocumentCard className="product-detail">
-      <DocumentCardTitle
-        className="product-detail__title"
-        title={current.title}
-        shouldTruncate
-      />
-      <Image
-        className="product-detail__image"
-        imageFit={ImageFit.cover}
-        src={current.image}
+    <ProductDetailContainer>
+      <Title title={getTitleLimit()}>{current.title}</Title>
+      <CardMedia
+        component="img"
+        height="550"
+        image={current.image}
         alt={current.alt}
       />
-      <Text className="product-detail__description">{current.description}</Text>
-      <div className="product-detail-price-amount-container">
-        <SpinButton
-          label="Amount:"
-          labelPosition={Position.top}
-          min={0}
-          step={1}
-          defaultValue={input}
-          incrementButtonAriaLabel="Increase value by 1"
-          decrementButtonAriaLabel="Decrease value by 1"
-          className="product-detail__spinner"
-          onChange={onChangeAmount}
-        />
-        <div>
-          <Text className="product-detail-price-amount-container__price">
-            {current.price}
-          </Text>
-          <Rating
-            defaultRating={0}
-            allowZeroStars
-            size={1}
-            max={5}
-            ariaLabel="Small stars with 0 stars allowed"
-            ariaLabelFormat="{0} of {1} stars"
-          />
-        </div>
-      </div>
-      <PrimaryButton
-        className="add-cart-button"
+      <DividerStyle>
+        <Divider>
+          <Chip label={current.author} />
+        </Divider>
+      </DividerStyle>
+      <Description>{current.description}</Description>
+      <DividerStyle>
+        <Divider />
+      </DividerStyle>
+      <PriceAmountContainer>
+        <Spinner>
+          <ButtonGroup
+            variant="outlined"
+            aria-label="outlined button group"
+            size="small"
+          >
+            <Button onClick={Increment}>+</Button>
+            <Button>{input}</Button>
+            <Button onClick={Decrement}>-</Button>
+          </ButtonGroup>
+        </Spinner>
+        <PriceRatingContainer>
+          <Price>{current.price}$</Price>
+          <Rating name="simple-controlled" />
+        </PriceRatingContainer>
+      </PriceAmountContainer>
+      <Button
+        variant="outlined"
         onClick={() => addToBasket()}
         disabled={input < 1}
         allowDisabledFocus
       >
         Add To Cart
-      </PrimaryButton>
+      </Button>
       <PopUp
         toggleHideDialog={toggleHideDialog}
         primaryLink={routes.cart}
@@ -99,7 +110,7 @@ const ProductDetail = () => {
         dialogContentProps={dialogContentProps}
         isSecondaryUsed={true}
       />
-    </DocumentCard>
+    </ProductDetailContainer>
   );
 };
 

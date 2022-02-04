@@ -1,34 +1,26 @@
 import React from "react";
-import { DocumentCardType, ImageFit, Text } from "@fluentui/react";
-import {
-  DocumentCard,
-  DocumentCardDetails,
-  DocumentCardImage,
-} from "@fluentui/react/lib/DocumentCard";
 import PropTypes from "prop-types";
-import "./Checkout.scss";
+import {
+  CardContainer,
+  CardDetails,
+  Title,
+  Price,
+  Image,
+  TitlePriceContainer,
+} from "./Styles/CheckoutStyle";
 
 const CheckoutProduct = ({ item }) => {
   return (
     <>
-      <DocumentCard
-        className="checkout"
-        key={item.id}
-        aria-label={item.alt}
-        type={DocumentCardType.compact}
-      >
-        <DocumentCardImage
-          height={80}
-          width={80}
-          imageFit={ImageFit.centerCover}
-          imageSrc={item.image}
-          alt={item.alt}
-        />
-        <DocumentCardDetails className="checkout-details">
-          <Text className="checkout-details__title">{item.title}</Text>
-          <Text className="checkout-details__price">{item.price}</Text>
-        </DocumentCardDetails>
-      </DocumentCard>
+      <CardContainer>
+        <Image src={item.image} alt={item.alt} />
+        <CardDetails>
+          <TitlePriceContainer>
+            <Title>{item.title}</Title>
+            <Price>{item.price}$</Price>
+          </TitlePriceContainer>
+        </CardDetails>
+      </CardContainer>
     </>
   );
 };

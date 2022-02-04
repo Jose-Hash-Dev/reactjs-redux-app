@@ -1,22 +1,20 @@
 import React, { useState } from "react";
-import {
-  DocumentCardType,
-  ImageFit,
-  Position,
-  SpinButton,
-  Text,
-} from "@fluentui/react";
-import "./Cart.scss";
-import {
-  DocumentCard,
-  DocumentCardDetails,
-  DocumentCardImage,
-  DocumentCardTitle,
-} from "@fluentui/react";
+import { Position, SpinButton } from "@fluentui/react";
 import { useDispatch } from "react-redux";
-import { Icon } from "@fluentui/react";
 import PropTypes from "prop-types";
 import { adjustQuantity, removeFromCart } from "../../Redux/Shopping/Actions";
+import {
+  CardDetails,
+  Image,
+  PriceSpinner,
+  TitleButton,
+  Price,
+  Title,
+  CardContainer,
+  SpinnerStyle,
+  DeleteButton,
+  Subtotal,
+} from "./Styles/CartStyle";
 
 const CartProduct = ({ item }) => {
   const [input, setInput] = useState(item.quantity);
@@ -28,40 +26,23 @@ const CartProduct = ({ item }) => {
   const dispatch = useDispatch();
   const removeProduct = () => {
     dispatch(removeFromCart(item.id, item.quantity));
-    console.log(item.quantity);
   };
   return (
-    <>
-      <DocumentCard
-        className="shopping-cart"
-        key={item.id}
-        aria-label={item.alt}
-        type={DocumentCardType.compact}
-      >
-        <DocumentCardImage
-          height={100}
-          width={100}
-          imageFit={ImageFit.centerCover}
-          imageSrc={item.image}
-          alt={item.alt}
-        />
-        <DocumentCardDetails>
-          <div className="shopping-cart-title-button-container">
-            <DocumentCardTitle
-              className="shopping-cart-title-button-container__title"
-              title={item.title}
-              shouldTruncate
-            />
-            <Icon
-              className="shopping-cart-title-button-container__close-button"
-              iconName="ChromeClose"
-              onClick={removeProduct}
-            />
-          </div>
-          <div className="shopping-cart-price-spinner-container">
-            <Text className="shopping-cart-price-spinner-container__price">
-              {item.price}
-            </Text>
+    <CardContainer>
+      <Image src={item.image} alt={item.alt} />
+      <CardDetails>
+        <TitleButton>
+          <Title>{item.title}</Title>
+          <DeleteButton
+            sx={{ fontSize: 22 }}
+            color="primary"
+            onClick={removeProduct}
+          />
+        </TitleButton>
+        <PriceSpinner>
+          <Price>{item.price}$</Price>
+          <Subtotal>Subtotal: {item.price * item.quantity}$</Subtotal>
+          <SpinnerStyle>
             <SpinButton
               labelPosition={Position.top}
               defaultValue={input}
@@ -72,16 +53,16 @@ const CartProduct = ({ item }) => {
               className="shopping-cart-price-spinner-container__spinner"
               onChange={onChangeAmount}
             />
-          </div>
-        </DocumentCardDetails>
-      </DocumentCard>
-    </>
+          </SpinnerStyle>
+        </PriceSpinner>
+      </CardDetails>
+    </CardContainer>
   );
 };
 CartProduct.propTypes = {
-  item: PropTypes.any,
-  adjustQuantity: PropTypes.any,
-  removeFromCart: PropTypes.any,
+  item: PropTypes.object,
+  adjustQuantity: PropTypes.number,
+  removeFromCart: PropTypes.func,
 };
 
 export default CartProduct;
